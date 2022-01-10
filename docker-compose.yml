@@ -1,0 +1,56 @@
+version: '3.4'
+
+services:
+  unlucosample.api:
+    image: ${DOCKER_REGISTRY-}unlucosampleapi
+    container_name: unlucosample.api
+    build:
+      context: .
+      dockerfile: UnluCoSample.Api/Dockerfile
+    ports:
+      - "1881:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - dev
+  frontend:
+    container_name: frontend
+    build: ./unlucosampleweb
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
+    ports:
+      - 3000:3000
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: npm start
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:     
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: unlucodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - dev
+  redis:
+    image: bitnami/redis:latest
+    container_name: redis
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+     - "6379:6379"
+    networks:
+      - dev
+networks:
+  dev:
+    name: dev_network
+    driver: bridge
+volumes:
+  postgres_data:
