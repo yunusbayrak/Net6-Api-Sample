@@ -1,12 +1,12 @@
 version: '3.4'
 
 services:
-  unlucosample.api:
-    image: ${DOCKER_REGISTRY-}unlucosampleapi
-    container_name: unlucosample.api
+  dotnety.api:
+    image: ${DOCKER_REGISTRY-}dotnety
+    container_name: dotnety.api
     build:
       context: .
-      dockerfile: UnluCoSample.Api/Dockerfile
+      dockerfile: dotnety.Api/Dockerfile
     ports:
       - "1881:80"
     environment:
@@ -16,7 +16,7 @@ services:
       - dev
   frontend:
     container_name: frontend
-    build: ./unlucosampleweb
+    build: ./dotnetyweb
     volumes:
       - './:/app'
       - '/app/node_modules'
@@ -32,7 +32,7 @@ services:
     volumes:     
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: unlucodb
+      POSTGRES_DB: dotnetydb
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     ports:

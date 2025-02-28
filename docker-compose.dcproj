@@ -6,7 +6,7 @@
     <ProjectGuid>8c9f4c64-e985-4c27-9f19-bde0dd8e75f0</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>unlucosample.api</DockerServiceName>
+    <DockerServiceName>dotnety.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
